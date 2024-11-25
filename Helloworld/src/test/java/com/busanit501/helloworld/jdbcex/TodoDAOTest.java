@@ -1,8 +1,15 @@
 package com.busanit501.helloworld.jdbcex;
 
+import com.busanit501.helloworld.food.dao.FoodDAO;
+import com.busanit501.helloworld.food.vo.FoodVO;
 import com.busanit501.helloworld.jdbcex.dao.TodoDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+
 
 public class TodoDAOTest {
     private TodoDAO todoDAO;
@@ -15,6 +22,9 @@ public class TodoDAOTest {
 
     @Test
     public void getTime() {
-        System.out.println("sql 전달 후, 시간 조회 확인용: "+todoDAO.getTime());
+        System.out.println("sql 전달 후, 시간 조회 확인용: " + todoDAO.getTime());
     }
-}
+
+
+}// class
+

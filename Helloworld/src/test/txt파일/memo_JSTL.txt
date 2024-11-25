@@ -39,6 +39,7 @@ build.gradle 파일이 있음. 여기에 복붙.
 html 메타 태그,
 설정 코드
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+임폴트로 하는 것과 비슷함.
 
 사용법
 1) 반복문
@@ -55,7 +56,22 @@ var(하나 꺼내서 사용할 요소의 변수명) ,
     </li>
   </c:forEach>
 </ul>
-
+단순 숫자만 1 ~ 7까지 출력
+<ul>
+  <c:forEach var="dto" begin="1" end="7">
+    <li>
+      ${dto}
+    </li>
+  </c:forEach>
+</ul>
+리스트의 데이터 값을 dto에 담고 숫자인덱스들만 출력
+<ul>
+  <c:forEach var="dto" items="${list}" begin="1" end="7">
+    <li>
+      ${dto}
+    </li>
+  </c:forEach>
+</ul>
 
 2) 조건문
 <c:if> , <c:choose>
