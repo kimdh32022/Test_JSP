@@ -2,8 +2,6 @@ package com.busanit501.helloworld.Member.controller;
 
 import com.busanit501.helloworld.Member.dto.MemberDTO;
 import com.busanit501.helloworld.Member.service.MemberService;
-import com.busanit501.helloworld.food.dto.FoodDTO;
-import com.busanit501.helloworld.food.service.FoodService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,8 +18,8 @@ public class MemberReadController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest rq, HttpServletResponse rsp) throws IOException, ServletException {
         try {
-            Long Uno = Long.parseLong(rq.getParameter("Uno"));
-            MemberDTO memberDTO = memberService.get(Uno);
+            Long uno = Long.parseLong(rq.getParameter("uno"));
+            MemberDTO memberDTO = memberService.get(uno);
 
             rq.setAttribute("dto", memberDTO);
             rq.getRequestDispatcher("/WEB-INF/member/memberRead.jsp")

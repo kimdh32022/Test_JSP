@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--JSTL 사용하기 준비 단계--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
@@ -14,6 +13,11 @@
 </head>
 <body>
   <h1>FoodList 목록화면. </h1>
+  <h2>${loginInfo.mname}님 환영합니다.</h2>
+  임시로 로그인한 유저 정보 : ${loginInfo}<br>
+  임시로 조회한 게시글 번호 정보 : ${cookie.viewTodos.value}<br>
+
+
   <form action="/logout" method="post">
     <button type="submit">로그아웃</button>
   </form>

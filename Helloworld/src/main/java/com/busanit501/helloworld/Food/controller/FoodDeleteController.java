@@ -1,6 +1,6 @@
-package com.busanit501.helloworld.Member.controller;
+package com.busanit501.helloworld.Food.controller;
 
-import com.busanit501.helloworld.Member.service.MemberService;
+import com.busanit501.helloworld.Food.service.FoodService;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;
@@ -12,22 +12,22 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @Log4j2 // log.info 형식으로 출력할 예정
-@WebServlet(name = "MemberDeleteController", urlPatterns = "/member/delete")
-public class MemberDeleteController extends HttpServlet {
+@WebServlet(name = "FoodDeleteController", urlPatterns = "/food/delete")
+public class FoodDeleteController extends HttpServlet {
 
-    private MemberService memberService = MemberService.INSTANCE;
+    private FoodService foodService = FoodService.INSTANCE;
 
     @Override
     protected void doPost(HttpServletRequest rq, HttpServletResponse rsp) throws ServletException, IOException {
 
-        Long uno =Long.parseLong(rq.getParameter("uno"));
+        Long tno =Long.parseLong(rq.getParameter("tno"));
         try {
-            memberService.delete(uno);
+            foodService.delete(tno);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        rsp.sendRedirect("/member/list");
+        rsp.sendRedirect("food/list");
 
     }
 }

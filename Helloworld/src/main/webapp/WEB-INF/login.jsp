@@ -16,10 +16,14 @@
 <c:if test="${param.result == 'error'}">
     <h1>로그인 정보 확인 후 다시 로그인 해주세요.</h1>
 </c:if>
-<form action="/login" method="post">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <button type="submit">로그인</button>
-</form>
+<fieldset>
+    <legend>로그인</legend>
+    <form action="/login" method="post">
+        <input type="text" name="mid" placeholder="Username"><br>
+        <input type="password" name="mpw" placeholder="Password"><br>
+        <input type="checkbox" name="auto" value="자동 로그인">
+        <button type="submit">로그인</button>
+    </form>
+</fieldset>
 </body>
 </html>

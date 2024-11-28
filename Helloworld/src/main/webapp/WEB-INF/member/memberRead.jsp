@@ -13,19 +13,19 @@
 <body>
 <h1>Member, 미니실습 Uno 번호로 하나 조회하는 화면, 상세보기와 같은 역할. </h1>
 <div>
-    <input type="text" name="Uno" value="${dto.getUno()}" readonly>
+    <input type="text" name="uno" value="${dto.uno()}" readonly>
 </div>
 <div>
-    <input type="text" name="ID" value="${dto.getID()}" placeholder="아이디" readonly>
+    <input type="text" name="id" value="${dto.id()}" placeholder="아이디" readonly>
 </div>
 <div>
-    <input type="text" name="Password" value="${dto.getPassword()}"readonly>
+    <input type="text" name="password" value="${dto.password()}"readonly>
 </div>
 <div>
-    <input type="text" name="Uname" value= "${dto.getUname()}" readonly>
+    <input type="text" name="uname" value= "${dto.uname()}" readonly>
 </div>
 <div>
-    <a href="/member/update?Uno=${dto.getUno()}">수정하기</a>
+    <a href="/member/update?uno=${dto.uno()}">수정하기</a>
     <a href="/member/list">목록으로</a>
 </div>
 </body>

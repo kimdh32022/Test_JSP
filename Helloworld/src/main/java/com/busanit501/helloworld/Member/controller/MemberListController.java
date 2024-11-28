@@ -22,14 +22,10 @@ public class MemberListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest rq, HttpServletResponse rsp) throws ServletException, IOException {
         try {
-            log.info("회원 전체 목록 조회를 시작합니다.");
             List<MemberDTO> memberlist = memberService.listAll();
-            log.debug("조회된 회원 수: {}", memberlist.size());
             rq.setAttribute("list", memberlist);
-            log.info("JSP 파일 호출 직전");
             rq.getRequestDispatcher("/WEB-INF/member/memberList.jsp")
                             .forward(rq, rsp);
-            log.info("JSP 파일 호출 성공");
 
         } catch (SQLException e) {
             log.error("회원 목록 조회 중 오류 발생", e);

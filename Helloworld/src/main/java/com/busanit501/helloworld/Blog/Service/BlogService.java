@@ -4,7 +4,7 @@ package com.busanit501.helloworld.Blog.Service;
 import com.busanit501.helloworld.Blog.DAO.BlogDAO;
 import com.busanit501.helloworld.Blog.DTO.BlogDTO;
 import com.busanit501.helloworld.Blog.DTO.BlogVO;
-import com.busanit501.helloworld.food.Utill.MapperUtill;
+import com.busanit501.helloworld.Food.Utill.MapperUtill;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 

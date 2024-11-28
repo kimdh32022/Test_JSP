@@ -12,24 +12,24 @@
 </head>
 <body>
 <h1>Member 업데이트 창 </h1>
-<form action="/member/update?Uno=${dto.getUno()}" method="post">
+<form action="/member/update?uno=${dto.uno()}" method="post">
     <div>
-        <input type="text" name="Uno" value="${dto.getUno()}" readonly>
+        <input type="text" name="uno" value="${dto.uno()}" readonly>
     </div>
     <div>
-        <input type="text" name="ID" value="${dto.getID()}" placeholder="바꾸실 아이디를 입력해주세요.">
+        <input type="text" name="id" value="${dto.id()}" placeholder="바꾸실 아이디를 입력해주세요.">
     </div>
     <div>
-        <input type="text" name="Password" value="${dto.getPassword()}">
+        <input type="text" name="password" value="${dto.password()}">
     </div>
     <div>
-        <input type="text" name="Uname" value="${dto.getUname()}" placeholder="이름을 입력해주세요.">
+        <input type="text" name="uname" value="${dto.uname()}" placeholder="이름을 입력해주세요.">
     </div>
     <div>
         <button type="submit">수정하기</button>
     </div>
 </form>
-<form action="/member/delete?Uno=${dto.getUno()}" method="post">
+<form action="/member/delete?uno=${dto.uno()}" method="post">
     <button type="submit">삭제</button>
 
     <button a href="/member/list">돌아가기</button>

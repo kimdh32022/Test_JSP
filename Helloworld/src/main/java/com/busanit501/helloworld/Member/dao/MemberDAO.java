@@ -1,8 +1,7 @@
 package com.busanit501.helloworld.Member.dao;
 
 import com.busanit501.helloworld.Member.vo.MemberVO;
-import com.busanit501.helloworld.food.Utill.ConnectionUtil;
-import com.busanit501.helloworld.food.vo.FoodVO;
+import com.busanit501.helloworld.Food.Utill.ConnectionUtil;
 import lombok.Cleanup;
 
 import java.sql.*;
@@ -13,7 +12,7 @@ public class MemberDAO {
 
     public void insert(MemberVO memberVO) throws SQLException {
 
-        String sql = "insert into Member_Table (ID, Password, Uname) " +
+        String sql = "insert into Member_Table (id, password, uname) " +
                 "values (?, ?, ?)";
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -44,11 +43,11 @@ public class MemberDAO {
         return list;
     }
 
-    public MemberVO selectOne(Long Uno) throws SQLException {
-        String sql = "select * from Member_Table where Uno = ?";
+    public MemberVO selectOne(Long uno) throws SQLException {
+        String sql = "select * from Member_Table where uno = ?";
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setLong(1, Uno);
+        preparedStatement.setLong(1, uno);
         @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
         MemberVO memberVO = MemberVO.builder()

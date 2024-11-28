@@ -2,7 +2,6 @@ package com.busanit501.helloworld.Blog.Controller;
 
 import com.busanit501.helloworld.Blog.DTO.BlogDTO;
 import com.busanit501.helloworld.Blog.Service.BlogService;
-import com.busanit501.helloworld.food.dto.FoodDTO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

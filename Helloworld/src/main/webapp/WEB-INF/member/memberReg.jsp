@@ -14,13 +14,13 @@
 <h1>Member 등록 폼</h1>
 <form action="/member/register" method="post">
     <div>
-        <input type="text" name = "ID" placeholder="아이디를 입력해주세요.">
+        <input type="text" name = "id" placeholder="아이디를 입력해주세요.">
     </div>
     <div>
-        <input type="text" name = "Password" placeholder="비밀번호를 입력해주세요">
+        <input type="text" name = "password" placeholder="비밀번호를 입력해주세요">
     </div>
     <div>
-        <input type="text" name = "Uname" placeholder="이름을 입력해주세요">
+        <input type="text" name = "uname" placeholder="이름을 입력해주세요">
     </div>
     <button type="reset">초기화</button>
     <button type="submit">등록</button>

@@ -3,7 +3,7 @@ package com.busanit501.helloworld.Member.service;
 import com.busanit501.helloworld.Member.dao.MemberDAO;
 import com.busanit501.helloworld.Member.dto.MemberDTO;
 import com.busanit501.helloworld.Member.vo.MemberVO;
-import com.busanit501.helloworld.food.Utill.MapperUtill;
+import com.busanit501.helloworld.Food.Utill.MapperUtill;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 
@@ -36,19 +36,15 @@ public enum MemberService {
 //        return list;
 //    }
     public List<MemberDTO> listAll() throws SQLException {
-        log.info("회원 전체 목록 조회 시작");
         List<MemberVO> volist = memberDAO.selectAll();
-        log.debug("DAO에서 반환된 VO 리스트 크기: {}", volist.size());
-
         List<MemberDTO> list = volist.stream()
                 .map(vo -> modelMapper.map(vo, MemberDTO.class))
                 .collect(Collectors.toList());
-        log.info("DTO 변환 완료: {} 개의 회원 조회", list.size());
         return list;
     }
     // 3 하나 조회
-    public MemberDTO get(Long Uno) throws SQLException {
-        MemberVO memberVO = memberDAO.selectOne(Uno);
+    public MemberDTO get(Long uno) throws SQLException {
+        MemberVO memberVO = memberDAO.selectOne(uno);
         MemberDTO memberDTO = modelMapper.map(memberVO, MemberDTO.class);
         return memberDTO;
     }
@@ -58,7 +54,7 @@ public enum MemberService {
         memberDAO.updatedata(memberVO);
     }
     // 5 삭제기능
-    public void delete(Long Uno) throws SQLException {
-        memberDAO.deletedata(Uno);
+    public void delete(Long uno) throws SQLException {
+        memberDAO.deletedata(uno);
     }
 }
