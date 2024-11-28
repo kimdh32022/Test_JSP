@@ -13,10 +13,10 @@
 <body>
 <h1>Bno번호 하나로 조회하는 화면 ,상세보기용</h1>
 <ul>
-    username : ${blogDTO.username}
-    title : ${blogDTO.title}
-    content : ${blogDTO.content}
-    Bno : ${blogDTO.bno}
+    username : ${kim.username}
+    title : ${kim.title}
+    content : ${kim.content}
+    Bno : ${kim.bno}
 </ul>
 </body>
 </html>

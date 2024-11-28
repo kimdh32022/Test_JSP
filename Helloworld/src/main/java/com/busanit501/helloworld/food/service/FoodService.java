@@ -1,44 +1,62 @@
 package com.busanit501.helloworld.food.service;
 
+import com.busanit501.helloworld.food.Utill.MapperUtill;
+import com.busanit501.helloworld.food.dao.FoodDAO;
 import com.busanit501.helloworld.food.dto.FoodDTO;
+import com.busanit501.helloworld.food.vo.FoodVO;
+import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
 
-import java.time.LocalDate;
+import javax.swing.plaf.PanelUI;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-//열거형 상수들,
-//상수들의 집합, 모음집
+@Log4j2
 public enum FoodService {
     INSTANCE;
 
-    // 글 등록하는 기능.
-    public void register(FoodDTO foodDTO) {
-        // 디비에 데이터를 쓰는 작업, insert
-        System.out.println("글쓰기 작업하는 기능입니다.");
+    private FoodDAO foodDAO;
+    private ModelMapper modelMapper;
+
+    FoodService() {
+        foodDAO = new FoodDAO();
+        modelMapper = MapperUtill.INSTANCE.getMap();
     }
 
-    public List<FoodDTO> getList() {
-        List<FoodDTO> foodList = IntStream.range(0,10).mapToObj(
-                i -> {
-                    // 10 반복 해서, 더미 인스턴스 10개 생성,
-                    FoodDTO foodDTO = new FoodDTO();
-                    foodDTO.setTitle("테스트AA " + i);
-                    foodDTO.setTno((long) i);
-                    foodDTO.setDueDate(LocalDate.now());
-                    return  foodDTO;
-                }).collect(Collectors.toList());
-        return foodList;
+    // 1 등록
+    // 화면에서 등록된 내용이 DTO파일에 담아서 서비스 계층에 전달
+    //DAO 작업 시, 디비에서 직접적인 영향을 주는 객체
+    //VO  실제 비지니스 로직에서만 사용
+    // 1 추가하기
+    public void register(FoodDTO foodDTO) throws SQLException {
+        FoodVO foodVO = modelMapper.map(foodDTO, FoodVO.class);
+        log.info("foodVO : "+ foodVO);
+        foodDAO.insert(foodVO);
     }
-
-    // 하나 조회, 상세보기 , 게시글에서, 게시글 번호 클릭시 나타나는 데이터
-    public FoodDTO getOne(Long tno) {
-        FoodDTO foodDTO = new FoodDTO();
-        foodDTO.setTno(5L);
-        foodDTO.setTitle("하나 조회 더미 데이터");
-        foodDTO.setDueDate(LocalDate.now());
+    // 2 전체 조회
+    public List<FoodDTO> listAll() throws SQLException {
+        List<FoodVO> volist = foodDAO.selectAll();
+        log.info("volist : "+ volist);
+        List<FoodDTO> dtolist = volist.stream().map(vo -> modelMapper.map(vo, FoodDTO.class))
+                .collect(Collectors.toList());
+        return dtolist;
+    }
+    // 3 하나 조회
+    public FoodDTO get(Long tno) throws SQLException {
+        log.info("tno : "+ tno);
+        FoodVO foodVO = foodDAO.selectOne(tno);
+        FoodDTO foodDTO = modelMapper.map(foodVO, FoodDTO.class);
         return foodDTO;
     }
-
+    // 4 수정기능
+    public void update(FoodDTO foodDTO) throws SQLException {
+        log.info("foodDTO : "+ foodDTO);
+        FoodVO foodVO = modelMapper.map(foodDTO, FoodVO.class);
+        foodDAO.updatedata(foodVO);
+    }
+    // 5 삭제기능
+    public void delete(Long tno) throws SQLException {
+        foodDAO.deletedata(tno);
+    }
 }
-

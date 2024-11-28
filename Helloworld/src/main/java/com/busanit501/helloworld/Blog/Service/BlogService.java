@@ -1,39 +1,54 @@
 package com.busanit501.helloworld.Blog.Service;
 
+
+import com.busanit501.helloworld.Blog.DAO.BlogDAO;
 import com.busanit501.helloworld.Blog.DTO.BlogDTO;
+import com.busanit501.helloworld.Blog.DTO.BlogVO;
+import com.busanit501.helloworld.food.Utill.MapperUtill;
+import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
+
+import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
+@Log4j2
 public enum BlogService {
     INSTANCE;
 
-    public void register(BlogDTO blogDTO) {
-        System.out.println("글쓰는 작업 중");
+    private BlogDAO blogDAO;
+    private ModelMapper modelMapper;
+
+    BlogService() {
+        blogDAO = new BlogDAO();
+        modelMapper = MapperUtill.INSTANCE.getMap();
     }
-    public List<BlogDTO> getList() {
-        // 디비에서 데이터 조회 후, 전달하기
-        List<BlogDTO> list = IntStream.range(0, 10)
-                .mapToObj(i -> {
-                    BlogDTO blogDTO = new BlogDTO();
-//                    blogDTO.setUsername("글쓴이" + i);
-                    blogDTO.setTitle("제목" + i);
-                    blogDTO.setContent("내용" + i);
-                    blogDTO.setBno(i);
-                    return blogDTO;
-                }).collect(Collectors.toList()); //10개의 인스턴스를 만듬.
 
 
-        return list;
+    // 화면에서 등록된 내용이 DTO파일에 담아서 서비스 계층에 전달
+    //DAO 작업 시, 디비에서 직접적인 영향을 주는 객체
+    //VO  실제 비지니스 로직에서만 사용
+    // 1 등록
+    public void register(BlogDTO blogDTO) throws SQLException {
+        BlogVO foodVO = modelMapper.map(blogDTO, BlogVO.class);
+        log.info("foodVO : "+ foodVO);
+        blogDAO.insertBlog(foodVO);
     }
-//하나 조회 메소드
-    public BlogDTO getOne(long i) {
-        BlogDTO blogDTO = new BlogDTO();
-//        blogDTO.setUsername("도현");
-        blogDTO.setTitle("내가 좋아하는 글");
-        blogDTO.setContent("셜록홈즈 소설집");
-        blogDTO.setBno(5);
-        return blogDTO;
+    // 2 전체 조회
+    public List<BlogDTO> listAll() throws SQLException {
+        List<BlogVO> volist = blogDAO.selectAllBlog();
+        log.info("volist : "+ volist);
+        List<BlogDTO> dtolist = volist.stream().map(vo -> modelMapper.map(vo, BlogDTO.class))
+                .collect(Collectors.toList());
+        return dtolist;
     }
+    // 3 하나만 조회
+    public BlogDTO getOne(Long bno) throws SQLException {
+        log.info("bno : "+ bno);
+        BlogVO blogVO = blogDAO.selectone(bno);
+        BlogDTO blogdto = modelMapper.map(blogVO, BlogDTO.class);
+        return blogdto;
+    }
+    // 4
+
 }

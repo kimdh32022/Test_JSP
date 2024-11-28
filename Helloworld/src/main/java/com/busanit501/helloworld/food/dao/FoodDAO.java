@@ -1,7 +1,7 @@
 package com.busanit501.helloworld.food.dao;
 
+import com.busanit501.helloworld.food.Utill.ConnectionUtil;
 import com.busanit501.helloworld.food.vo.FoodVO;
-import com.busanit501.helloworld.jdbcex.dao.ConnectionUtil;
 import lombok.Cleanup;
 
 import java.sql.*;
@@ -42,11 +42,12 @@ public class FoodDAO {
 
         return list;
     }
+
     public FoodVO selectOne(Long tno) throws SQLException {
         String sql = "select * from tbl_food where tno = ?";
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setLong(1,tno);
+        preparedStatement.setLong(1, tno);
         @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
         FoodVO foodVO = FoodVO.builder()
@@ -67,10 +68,11 @@ public class FoodDAO {
         String sql = "update tbl_food set title = ?, dueDate = ?, finished=? where tno = ?";
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
         preparedStatement.setString(1, foodVO.getTitle());
         preparedStatement.setDate(2, Date.valueOf(foodVO.getDueDate()));
         preparedStatement.setBoolean(3, foodVO.isFinished());
-        preparedStatement.setLong(4,foodVO.getTno());
+        preparedStatement.setLong(4, foodVO.getTno());
         preparedStatement.executeUpdate();
     }
 
@@ -81,11 +83,10 @@ public class FoodDAO {
         //db서버에서 필요한 아이디, 비번, 드라이브 같은걸 가져와서 연결 준비하기
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
         //sql에 담아서 전달하여 db를 들어감
-        preparedStatement.setLong(1,tno);
+        preparedStatement.setLong(1, tno);
         //where tno = ? 여기에 1을 표현하고, Long tno 이 값을 받아온게 tno임.
         preparedStatement.executeUpdate();
     }
-
 
 
 } //class

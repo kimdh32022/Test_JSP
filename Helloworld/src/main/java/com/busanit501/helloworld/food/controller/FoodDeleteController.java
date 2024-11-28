@@ -14,24 +14,22 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Log4j2 // log.info 형식으로 출력할 예정
-@WebServlet(name = "FoodListController", urlPatterns = "/food/list")
-public class FoodListController extends HttpServlet {
+@WebServlet(name = "FoodDeleteController", urlPatterns = "/food/delete")
+public class FoodDeleteController extends HttpServlet {
 
     private FoodService foodService = FoodService.INSTANCE;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest rq, HttpServletResponse rsp) throws ServletException, IOException {
 
+        Long tno =Long.parseLong(rq.getParameter("tno"));
         try {
-            List<FoodDTO> foodlist = foodService.listAll();
-            request.setAttribute("list", foodlist);
-            request.getRequestDispatcher("/WEB-INF/food/foodList.jsp")
-                    .forward(request, response);
+            foodService.delete(tno);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        rsp.sendRedirect("food/list");
 
     }
 }

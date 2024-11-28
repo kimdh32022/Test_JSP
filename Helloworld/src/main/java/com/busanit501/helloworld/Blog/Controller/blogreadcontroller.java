@@ -9,20 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name ="blogreadcontroller", urlPatterns = "/blog/read")
 public class blogreadcontroller extends HttpServlet {
+    private BlogService blogService = BlogService.INSTANCE;
     @Override
-protected void doGet(HttpServletRequest rq, HttpServletResponse rsp) throws IOException, ServletException{
-        System.out.println("blogreadcontroller 이거 조회됌.");
-
-        int bno = Integer.parseInt(rq.getParameter("Bno"));
+protected void doGet(HttpServletRequest rq, HttpServletResponse rsp) throws IOException, ServletException {
+        Long bno = (long) Integer.parseInt(rq.getParameter("Bno"));
         //서비스에서 하나의 더미데이터를 조회 후 화면에 전달하기
-        BlogDTO blogDTO = BlogService.INSTANCE.getOne(bno);
 
-        rq.setAttribute("blogDTO", blogDTO);
-        rq.getRequestDispatcher("/WEB-INF/Blog/Blogread.jsp")
-                .forward(rq, rsp);
+        try {
+           BlogDTO blogDTO = blogService.getOne(bno);
+            rq.setAttribute("blogDTO", blogDTO);
+            rq.getRequestDispatcher("/WEB-INF/Blog/Blogread.jsp")
+                    .forward(rq, rsp);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
