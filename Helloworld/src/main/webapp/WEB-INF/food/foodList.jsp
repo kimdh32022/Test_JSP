@@ -14,6 +14,9 @@
 </head>
 <body>
   <h1>FoodList 목록화면. </h1>
+  <form action="/logout" method="post">
+    <button type="submit">로그아웃</button>
+  </form>
     <a href="/food/register">글쓰기 폼이동</a>
   <h2>FoodRead 하나 조회 더미 </h2>
   <a href="/food/read?tno=5">하나 조회</a>

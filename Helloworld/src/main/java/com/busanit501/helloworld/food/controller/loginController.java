@@ -1,5 +1,8 @@
 package com.busanit501.helloworld.food.controller;
 
+import com.busanit501.helloworld.food.dto.MemDTO;
+import com.busanit501.helloworld.food.service.MemService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "loginController", urlPatterns = "/login")
 public class loginController extends HttpServlet {
@@ -20,9 +24,16 @@ public class loginController extends HttpServlet {
        String id = rq.getParameter("username");
        String passw = rq.getParameter("password");
 
-       String tempInfo = id + passw;
-       HttpSession  session =  rq.getSession();
-       session.setAttribute("loginInfo", tempInfo);
-       rsp.sendRedirect("/food/list");
+        try {
+            MemDTO memDTO = MemService.INSTANCE.login(id,passw);
+            HttpSession  session =  rq.getSession();
+            session.setAttribute("loginInfo", memDTO);
+            rsp.sendRedirect("/food/list");
+        } catch (SQLException e) {
+            rsp.sendRedirect("/login?result=error");
+        }
+
+
+
     }
 }

@@ -12,7 +12,7 @@
 </head>
 <body>
 <h1>Member 업데이트 창 </h1>
-<form action="/member/update?tno=${dto.getUno()}" method="post">
+<form action="/member/update?Uno=${dto.getUno()}" method="post">
     <div>
         <input type="text" name="Uno" value="${dto.getUno()}" readonly>
     </div>

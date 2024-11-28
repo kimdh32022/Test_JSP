@@ -1,6 +1,7 @@
 package com.busanit501.helloworld.food.Filter;
 
 import com.busanit501.helloworld.food.dto.FoodDTO;
+import com.busanit501.helloworld.food.dto.MemDTO;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.*;
@@ -35,8 +36,8 @@ public class LoginFilter implements Filter {
             return;
         }
         if(sesseion.getAttribute("loginInfo") != null){
-            String result = (String) sesseion.getAttribute("loginInfo");
-            log.info("result: " + result);
+            MemDTO memDTO = (MemDTO) sesseion.getAttribute("loginInfo");
+            log.info("memDTO: " + memDTO);
         }
 
         filterChain.doFilter(request, servletResponse);
