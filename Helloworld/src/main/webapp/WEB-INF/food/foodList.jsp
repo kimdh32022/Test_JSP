@@ -15,7 +15,8 @@
   <h1>FoodList 목록화면. </h1>
   <h2>${loginInfo.mname}님 환영합니다.</h2>
   임시로 로그인한 유저 정보 : ${loginInfo}<br>
-  임시로 조회한 게시글 번호 정보 : ${cookie.viewTodos.value}<br>
+  임시로 조회한 게시글 번호 정보 : ${cookie.viewFoods.value}<br>
+  임시 서블릿 컨텍스트의 애플리케이션 공간에 저장된 변수 조회 :  ${appTestName}
 
 
   <form action="/logout" method="post">

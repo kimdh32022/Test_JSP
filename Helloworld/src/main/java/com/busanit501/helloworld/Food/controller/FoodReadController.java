@@ -28,7 +28,7 @@ public class FoodReadController extends HttpServlet {
 
             rq.setAttribute("dto", foodDTO);
 
-            Cookie findCookie = findCookie(rq.getCookies(), "viewTodos");
+            Cookie findCookie = findCookie(rq.getCookies(), "viewFoods");
             String cookieValue = findCookie.getValue();
             boolean exists = false;
             if (cookieValue != null && cookieValue.indexOf(tno+"-") >= 0) {
@@ -59,7 +59,7 @@ public class FoodReadController extends HttpServlet {
             }//for
         }//if
         if(findCookie == null) {
-            findCookie = new Cookie("viewTodos", "");
+            findCookie = new Cookie("viewFoods", "");
             findCookie.setPath("/");
             findCookie.setMaxAge(60 * 60 * 24);
 

@@ -21,7 +21,7 @@
     <form action="/login" method="post">
         <input type="text" name="mid" placeholder="Username"><br>
         <input type="password" name="mpw" placeholder="Password"><br>
-        <input type="checkbox" name="auto" value="자동 로그인">
+        <input type="checkbox" name="auto">자동 로그인
         <button type="submit">로그인</button>
     </form>
 </fieldset>

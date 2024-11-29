@@ -4,6 +4,7 @@ import com.busanit501.helloworld.Food.dto.FoodDTO;
 import com.busanit501.helloworld.Food.service.FoodService;
 import lombok.extern.log4j.Log4j2;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +22,9 @@ public class FoodListController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ServletContext context = request.getServletContext();
+        String result = (String) context.getAttribute("appTestName");
+
 
         try {
             List<FoodDTO> foodlist = foodService.listAll();
