@@ -34,7 +34,10 @@
 <!--        여기 속성에 우리가 만든 클래스 경로를 지정하기-->
         <property name="formatters">
             <set>
+<!--                문자열 타입으로 오면 로컬데이트 타입으로 자동 형변환-->
                 <bean class="com.busanit501.springex.controller.formatter.LocalDateFormatter"></bean>
+<!--                체크박스에 체크가 되었다면 값이 on에서 true나 false로 자동 변경-->
+                <bean class="com.busanit501.springex.controller.formatter.CheckboxFormatter"></bean>
             </set>
         </property>
     </bean>
