@@ -5,6 +5,7 @@ import com.busanit501.bootme.domain.QBoard;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.data.domain.Pageable;
 
@@ -36,9 +37,36 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         List<Board> list = query.fetch();
         long total = query.fetchCount();
 
-
-
-
         return null;
+    }
+
+    @Override
+    public Page<Board> searchAll(String[] types, String keyword, Pageable pageable) {
+        QBoard board = QBoard.board;
+        JPQLQuery<Board> query = from(board);
+        if (types != null && types.length > 0 && keyword != null) {
+            BooleanBuilder booleanBuilder = new BooleanBuilder();
+            for (String type : types) {
+                switch (type) {
+                    case "t":
+                        booleanBuilder.or(board.title.contains(keyword));
+                    case "c":
+                        booleanBuilder.or(board.content.contains(keyword));
+                    case "w":
+                        booleanBuilder.or(board.writer.contains(keyword));
+                }//switch
+            }//for
+            query.where(booleanBuilder);
+        }//if
+        query.where((board.bno.gt(0L)));
+
+        this.getQuerydsl().applyPagination(pageable, query);
+        //데이터 가져오기
+        List<Board> list = query.fetch();
+        //검색 조건에 맞는 데이터 갯수 조회
+        long total = query.fetchCount();
+        //page타입으로 전달하기
+        Page<Board> result = new PageImpl<Board>(list, pageable, total);
+        return result;
     }
 }

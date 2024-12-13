@@ -13,10 +13,14 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-
 @SpringBootTest
 @Log4j2
 public class BoardReopositoryTests {
+
+    @Test
+    public void testFindAll() {
+
+    }
 
     @Autowired
     // 아무 메소드가 없지만, 기본 탑재된 쿼리 메소드 이용해서, crud  해보기.
@@ -41,7 +45,7 @@ public class BoardReopositoryTests {
 
     @Test
     public void testSelectOne() {
-        Long bno = 199L;
+        Long bno = 99L;
         //있으면 해당 인스터스를 가져오고 없으면 null임.
         Optional<Board> result = boardRepository.findById(bno);
         Board board = result.orElseThrow();
@@ -115,5 +119,29 @@ public class BoardReopositoryTests {
 //        Page<Board> result = boardRepository.search(pageable);
         boardRepository.search(pageable);
     }
+
+    @Test
+    public void testQuerydsl2() {
+        Pageable pageable = PageRequest.of(1, 10,
+                Sort.by("bno").descending());
+        String keyword = "3";
+        String[] types = {"t","w","c"};
+
+        Page<Board> result = boardRepository.searchAll(types,keyword,pageable);
+
+        log.info("result.getTotalElements()전체 갯수 :" +result.getTotalElements());
+        log.info("result.getTotalPages()총페이지등 :" +result.getTotalPages());
+        log.info("result.getContent() 페이징된 결과물 10개 :" +result.getContent());
+        log.info("result.getNumber() 현재 페이지 번호 :" +result.getNumber());
+        log.info("result.getSize() 크기  :" +result.getSize());
+        log.info("result.hasNext() 다음  :" +result.hasNext());
+        log.info("result.hasPrevious() 이전  :" +result.hasPrevious());
+
+    }
+
+
+
+
+
 
 }
