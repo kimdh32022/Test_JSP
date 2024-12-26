@@ -2,6 +2,7 @@ package com.busanit501.kimdh.service;
 
 import com.busanit501.kimdh.domain.Food;
 import com.busanit501.kimdh.dto.FoodDTO;
+import com.busanit501.kimdh.dto.FoodListReplyCountDTO;
 import com.busanit501.kimdh.dto.PageRequestDTO;
 import com.busanit501.kimdh.dto.PageResponseDTO;
 import com.busanit501.kimdh.repository.FoodRepository;
@@ -69,6 +70,22 @@ public class FoodServiceImpl implements FoodService {
         return PageResponseDTO.<FoodDTO>withAll()
                 .pageRequestDTO(pageRequestDTO)
                 .dtoList(dtoList)
+                .total((int) result.getTotalElements())
+                .build();
+    }
+
+    @Override
+    public PageResponseDTO<FoodListReplyCountDTO> listWithReplyCount(PageRequestDTO pageRequestDTO) {
+
+        String[] types = pageRequestDTO.getTypes();
+        String keyword = pageRequestDTO.getKeyword();
+        Pageable pageable = pageRequestDTO.getPageable("id");
+
+        // 수정1
+        Page<FoodListReplyCountDTO> result = foodRepository.searchWithReplyCount(types,keyword,pageable);
+        return PageResponseDTO.<FoodListReplyCountDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(result.getContent())
                 .total((int) result.getTotalElements())
                 .build();
     }

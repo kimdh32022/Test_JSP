@@ -1,9 +1,6 @@
 package com.busanit501.kimdh.controller;
 
-import com.busanit501.kimdh.dto.FoodDTO;
-import com.busanit501.kimdh.dto.LinkDTO;
-import com.busanit501.kimdh.dto.PageRequestDTO;
-import com.busanit501.kimdh.dto.PageResponseDTO;
+import com.busanit501.kimdh.dto.*;
 import com.busanit501.kimdh.service.FoodService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +22,7 @@ public class FoodController {
 
     @GetMapping("list")
     public void list(PageRequestDTO pageRequestDTO, Model model) {
-        PageResponseDTO<FoodDTO> responseDTO = foodService.list(pageRequestDTO);
+        PageResponseDTO<FoodListReplyCountDTO> responseDTO = foodService.listWithReplyCount(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
     }
 

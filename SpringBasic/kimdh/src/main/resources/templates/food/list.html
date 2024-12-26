@@ -6,11 +6,6 @@
 >
 <body>
 <div layout:fragment="content">
-<!--    라이브 데모 모달-->
-    <!-- Button trigger modal -->
-<!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
-<!--        Launch demo modal-->
-<!--    </button>-->
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1"
@@ -42,7 +37,7 @@
             </div>
         </div>
     </div>
-<!--    라이브 데모 모달-->
+    <!--    라이브 데모 모달-->
 
     <!--    검색화면 추가-->
 
@@ -75,12 +70,12 @@
 
                                 </select>
                             </div>
-<!--                            검색 키워드 입력 창-->
-                           <input type="text" class="form-controll" name="keyword"
-                           th:value="${pageRequestDTO.keyword}">
+                            <!--                            검색 키워드 입력 창-->
+                            <input type="text" class="form-control" name="keyword"
+                                   th:value="${pageRequestDTO.keyword}">
 
                         </div>
-<!--                        검색 창에서, 검색 키워드 입력 받는 화면 필요-->
+                        <!--                        검색 창에서, 검색 키워드 입력 받는 화면 필요-->
 
                         <div class="input-group mb-3">
                             <div class="float-end">
@@ -118,7 +113,7 @@
                             <th scope="col">RegDate</th>
                         </tr>
                         </thead>
-<!--                        ?page=1&type=t&keyword=3-->
+                        <!--                        ?page=1&type=t&keyword=3-->
                         <tbody th:with="link = ${pageRequestDTO.link}">
                         <tr th:each="dto:${responseDTO.dtoList}">
                             <th scope="row">
@@ -126,8 +121,12 @@
                             </th>
                             <td>
                                 <a th:href="|@{/food/read(id=${dto.id})}&${link}|">
-                                [[${dto.fname}]]
+                                    [[${dto.fname}]]
                                 </a>
+                                <span class="badge progress-bar-success"
+                                      style="background-color: crimson">
+                                    [[${dto.replyCount}]]
+                                </span>
                             </td>
                             <td>[[${dto.writer}]]</td>
                             <td>[[${#temporals.format(dto.regDate,'yyyy-MM-dd HH:mm:ss')}]]</td>
@@ -141,12 +140,12 @@
                                 <a class="page-link" th:data-num="${responseDTO.start - 1}">Previous</a>
                             </li>
 
-                            <th:blcok th:each="i:${#numbers.sequence(responseDTO.start,responseDTO.end)}">
-                                <li th:class="${responseDTO.page == i}?'page-item active':'page-item'">
+                            <th:block th:each="i:${#numbers.sequence(responseDTO.start,responseDTO.end)}">
+                            <li th:class="${responseDTO.page == i}?'page-item active':'page-item'">
                                     <a class="page-link"
                                        th:data-num="${i}">[[${i}]]</a>
                                 </li>
-                            </th:blcok>
+                            </th:block>
 
                             <li class="page-item" th:if="${responseDTO.next}">
                                 <a class="page-link" th:data-num="${responseDTO.end + 1}">Next</a>
@@ -192,7 +191,7 @@
 
     const modal = new bootstrap.Modal(document.querySelector(".modal"))
 
-    if(result){
+    if (result) {
         modal.show()
     }
 
